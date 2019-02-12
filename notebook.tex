@@ -1,0 +1,784 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Devoir Python}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Devoir finale : Python for Data
+Analisys}\label{devoir-finale-python-for-data-analisys}
+
+MEU-Mobile KSD Data Set
+
+Sabri LACHIHAB IBO 3
+
+    \section{Importation des librairies pour le
+projet}\label{importation-des-librairies-pour-le-projet}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{c+c1}{\PYZsh{} Pandas pour traiter le dataset}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{c+c1}{\PYZsh{} Librairies nécessaires pour effectuer le scrapping de la page web}
+          \PY{k+kn}{import} \PY{n+nn}{os}
+          \PY{k+kn}{import} \PY{n+nn}{requests} 
+          \PY{k+kn}{from} \PY{n+nn}{bs4} \PY{k}{import} \PY{n}{BeautifulSoup}
+          \PY{k+kn}{from} \PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{parse} \PY{k}{import} \PY{n}{unquote}
+          \PY{c+c1}{\PYZsh{} Pour la visualisation des graphiques}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{c+c1}{\PYZsh{} Effectuer le model et le tester et chercher ses hyperparamètres}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+          \PY{c+c1}{\PYZsh{} Visualisation du rapport de la grid search}
+          \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{c+c1}{\PYZsh{} Sauvegarder le modele obtenu à la fin}
+          \PY{k+kn}{import} \PY{n+nn}{pickle}
+\end{Verbatim}
+
+
+    \section{Téléchargement via webscrapping de la base de donnée sur le pc
+local}\label{tuxe9luxe9chargement-via-webscrapping-de-la-base-de-donnuxe9e-sur-le-pc-local}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{c+c1}{\PYZsh{} Recupuerer le code html de la page qui nous intéresste }
+          \PY{n}{url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://archive.ics.uci.edu/ml/datasets/MEU\PYZhy{}Mobile+KSD\PYZsh{}}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{base\PYZus{}url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://archive.ics.uci.edu/ml/}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{requete} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+          \PY{n}{page} \PY{o}{=} \PY{n}{requete}\PY{o}{.}\PY{n}{content}
+          \PY{n}{soup} \PY{o}{=} \PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{page}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lxml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{html} \PY{o}{=} \PY{n}{soup}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Fonction permettant de recuperer le lien du data folder du site (page contenant le lien du dataset) }
+          \PY{k}{def} \PY{n+nf}{url\PYZus{}data\PYZus{}folder}\PY{p}{(}\PY{n}{html}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{balise} \PY{o+ow}{in} \PY{n}{html}\PY{p}{:}
+                  \PY{k}{if}\PY{p}{(}\PY{n}{balise}\PY{o}{.}\PY{n}{get\PYZus{}text}\PY{p}{(}\PY{p}{)}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data Folder}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{href} \PY{o}{=} \PY{n}{balise}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{href}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{n}{new\PYZus{}url} \PY{o}{=} \PY{n}{base\PYZus{}url} \PY{o}{+} \PY{n}{href}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                      \PY{k}{return} \PY{n}{new\PYZus{}url}
+                  
+          \PY{n}{url\PYZus{}data} \PY{o}{=} \PY{n}{url\PYZus{}data\PYZus{}folder}\PY{p}{(}\PY{n}{html}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} fonction permettant de recuperer le lien du fichier à télécharger sur le pc local}
+          \PY{k}{def} \PY{n+nf}{scrapping\PYZus{}data\PYZus{}folder}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{p}{:}
+              \PY{n}{requete} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+              \PY{n}{page} \PY{o}{=} \PY{n}{requete}\PY{o}{.}\PY{n}{content}
+              \PY{n}{soup} \PY{o}{=} \PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{page}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lxml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{balise\PYZus{}td} \PY{o}{=} \PY{n}{soup}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{td}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{array\PYZus{}url\PYZus{}to\PYZus{}download} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{item\PYZus{}tr} \PY{o+ow}{in} \PY{n}{balise\PYZus{}td}\PY{p}{:}
+                  \PY{n}{text} \PY{o}{=} \PY{n}{item\PYZus{}tr}\PY{o}{.}\PY{n}{get\PYZus{}text}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+                  \PY{k}{if}\PY{p}{(}\PY{n}{text} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{text} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parent Directory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{balise\PYZus{}a} \PY{o}{=} \PY{n}{item\PYZus{}tr}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{k}{if}\PY{p}{(}\PY{n}{balise\PYZus{}a}\PY{o}{!=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{array\PYZus{}url\PYZus{}to\PYZus{}download}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{url}\PY{o}{+}\PY{n}{balise\PYZus{}a}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{href}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{array\PYZus{}url\PYZus{}to\PYZus{}download}
+                   
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{url à télécharger}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{array\PYZus{}url\PYZus{}to\PYZus{}download} \PY{o}{=} \PY{n}{scrapping\PYZus{}data\PYZus{}folder}\PY{p}{(}\PY{n}{url\PYZus{}data}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{array\PYZus{}url\PYZus{}to\PYZus{}download}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} fonction permettant de télécharger le fichier sur le pc local}
+          \PY{k}{def} \PY{n+nf}{download\PYZus{}file}\PY{p}{(}\PY{n}{array}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{url} \PY{o+ow}{in} \PY{n}{array}\PY{p}{:}
+                  \PY{n}{r} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+                  \PY{n}{new\PYZus{}url} \PY{o}{=} \PY{n}{unquote}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+                  \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{new\PYZus{}url}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{00399/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                      \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{r}\PY{o}{.}\PY{n}{content}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Download finished of }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{new\PYZus{}url}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{00399/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                  
+          \PY{n}{download\PYZus{}file}\PY{p}{(}\PY{n}{array\PYZus{}url\PYZus{}to\PYZus{}download}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+l'url à télécharger
+
+['https://archive.ics.uci.edu/ml/machine-learning-databases/00399/MEU-Mobile\%20KSD\%202016.xlsx']
+Download finished of MEU-Mobile KSD 2016.xlsx
+
+    \end{Verbatim}
+
+    \section{Data-préparation (pandas)}\label{data-pruxe9paration-pandas}
+
+Notre base de données est le fichier 'MEU-Mobile KSD 2016.xlsx' qu'on
+téléchargé précédament
+
+    \subsubsection{Initialisation de notre
+dataframe}\label{initialisation-de-notre-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MEU\PYZhy{}Mobile KSD 2016.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Nettoyage de notre
+dataframe}\label{nettoyage-de-notre-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{c+c1}{\PYZsh{}Suppression des 2 premieres lignes du fichier}
+          \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Modification des noms des colomnes}
+          \PY{n}{column\PYZus{}names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{mapping} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:} \PY{n}{column\PYZus{}names}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{column\PYZus{}names}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+          \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{mapping}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Nettoyage des valeures nulles}
+          \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Suppression des lignes vides}
+          \PY{n}{filterDF} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Subject}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{df} \PY{o}{=} \PY{n}{dfs}\PY{p}{[}\PY{n}{filterDF}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Visualisation des 5 premieres lignes du dataframe}
+          \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}148}]:}    Subject  Hold .  Hold t  Hold i  Hold e  Hold Shift  Hold 5  Hold Shift  \textbackslash{}
+          0      1.0    89.0    92.0    64.0    85.0       123.0    82.0        70.0   
+          1      1.0    90.0    88.0    99.0    83.0       123.0   101.0        81.0   
+          2      1.0    87.0    90.0    83.0    65.0        79.0    73.0        96.0   
+          3      1.0    71.0    81.0    62.0    72.0        83.0    94.0        89.0   
+          4      1.0    89.0    72.0    82.0    82.0        62.0    89.0        68.0   
+          
+             Hold Caps  Hold r    {\ldots}     Size Caps    Size r    Size o    Size a  \textbackslash{}
+          0      101.0    84.0    {\ldots}      0.225806  0.225806  0.322581  0.290323   
+          1       94.0    88.0    {\ldots}      0.225806  0.225806  0.322581  0.322581   
+          2       62.0    64.0    {\ldots}      0.225806  0.193548  0.290323  0.322581   
+          3      104.0    73.0    {\ldots}      0.225806  0.225806  0.258065  0.290323   
+          4       88.0    69.0    {\ldots}      0.290323  0.225806  0.322581  0.258065   
+          
+               Size n    Size l  Size Enter        AvH       AvP       AvA  
+          0  0.225806  0.354839    0.258065  88.071429  0.190971  0.288018  
+          1  0.258065  0.387097    0.322581  92.071429  0.186514  0.274194  
+          2  0.225806  0.258065    0.225806  83.571429  0.186171  0.271889  
+          3  0.225806  0.322581    0.322581  81.428571  0.177943  0.278802  
+          4  0.225806  0.290323    0.387097  77.428571  0.163200  0.283410  
+          
+          [5 rows x 72 columns]
+\end{Verbatim}
+            
+    \section{Data-visualisation des
+données}\label{data-visualisation-des-donnuxe9es}
+
+    \subsubsection{Description du dataset}\label{description-du-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}154}]:}           Subject       Hold .       Hold t       Hold i       Hold e  \textbackslash{}
+          count  2856.00000  2856.000000  2856.000000  2856.000000  2856.000000   
+          mean     28.50000    94.817577    89.774860    91.097689    87.083333   
+          std      16.16606    23.236046    20.987113    22.992405    20.687536   
+          min       1.00000    18.000000    20.000000    20.000000     9.000000   
+          25\%      14.75000    80.000000    75.000000    75.000000    73.000000   
+          50\%      28.50000    92.000000    89.000000    90.000000    86.000000   
+          75\%      42.25000   108.000000   102.000000   103.000000   100.000000   
+          max      56.00000   226.000000   226.000000   252.000000   242.000000   
+          
+                  Hold Shift       Hold 5   Hold Shift    Hold Caps       Hold r  \textbackslash{}
+          count  2856.000000  2856.000000  2856.000000  2856.000000  2856.000000   
+          mean     91.549370    84.568978    93.727941    86.810924    86.292717   
+          std      22.757913    18.968962    22.184260    21.014413    19.645914   
+          min      19.000000    18.000000    18.000000    16.000000    20.000000   
+          25\%      77.000000    73.000000    79.000000    71.000000    73.000000   
+          50\%      89.000000    83.000000    92.000000    87.000000    85.000000   
+          75\%     106.000000    95.000000   107.000000    99.000000    99.000000   
+          max     203.000000   170.000000   213.000000   186.000000   166.000000   
+          
+                    {\ldots}         Size Caps       Size r       Size o       Size a  \textbackslash{}
+          count     {\ldots}       2856.000000  2856.000000  2856.000000  2856.000000   
+          mean      {\ldots}          0.260222     0.268264     0.326895     0.306576   
+          std       {\ldots}          0.062298     0.061430     0.105392     0.094083   
+          min       {\ldots}          0.064516     0.096774     0.096774     0.064516   
+          25\%       {\ldots}          0.225806     0.225806     0.258065     0.258065   
+          50\%       {\ldots}          0.258065     0.258065     0.290323     0.290323   
+          75\%       {\ldots}          0.290323     0.290323     0.387097     0.354839   
+          max       {\ldots}          0.548387     0.709677     1.000000     1.000000   
+          
+                      Size n       Size l   Size Enter          AvH          AvP  \textbackslash{}
+          count  2856.000000  2856.000000  2856.000000  2856.000000  2856.000000   
+          mean      0.283320     0.299980     0.362429    89.292267     0.217467   
+          std       0.076654     0.095267     0.122663    15.540854     0.103830   
+          min       0.129032     0.096774     0.096774    52.071429     0.044229   
+          25\%       0.225806     0.258065     0.290323    78.714286     0.127200   
+          50\%       0.290323     0.290323     0.322581    88.071429     0.201771   
+          75\%       0.322581     0.322581     0.419355    98.375000     0.294600   
+          max       0.935484     1.000000     1.000000   153.214286     0.603086   
+          
+                         AvA  
+          count  2856.000000  
+          mean      0.305760  
+          std       0.061332  
+          min       0.138249  
+          25\%       0.262673  
+          50\%       0.297235  
+          75\%       0.347926  
+          max       0.525346  
+          
+          [8 rows x 72 columns]
+\end{Verbatim}
+            
+    On peut voir qu'on a 56 subjets pour 71(72-1) features dans ce dataset
+
+On a 2856 mesures qui a été effectués
+
+    \subsubsection{Nombres de mesures par
+subject}\label{nombres-de-mesures-par-subject}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Subject}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+55.0    51
+53.0    51
+26.0    51
+25.0    51
+24.0    51
+23.0    51
+22.0    51
+21.0    51
+20.0    51
+19.0    51
+18.0    51
+17.0    51
+16.0    51
+15.0    51
+14.0    51
+13.0    51
+12.0    51
+11.0    51
+10.0    51
+9.0     51
+8.0     51
+7.0     51
+6.0     51
+5.0     51
+4.0     51
+3.0     51
+2.0     51
+27.0    51
+28.0    51
+29.0    51
+54.0    51
+51.0    51
+49.0    51
+47.0    51
+45.0    51
+43.0    51
+41.0    51
+39.0    51
+37.0    51
+35.0    51
+33.0    51
+56.0    51
+52.0    51
+30.0    51
+50.0    51
+48.0    51
+46.0    51
+44.0    51
+42.0    51
+40.0    51
+38.0    51
+36.0    51
+34.0    51
+32.0    51
+31.0    51
+1.0     51
+Name: Subject, dtype: int64
+
+    \end{Verbatim}
+
+    On a 51 mesures par subject d'où 51*56=2856 mesures
+
+    \subsubsection{Visualisation graphique du nombre de mesures par
+subject}\label{visualisation-graphique-du-nombre-de-mesures-par-subject}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}169}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Visualisation graphique du nombre de mesures par subject}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Subject}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nombre de mesures}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{56}\PY{p}{)}\PY{p}{,}\PY{n}{df}\PY{o}{.}\PY{n}{Subject}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{n}{n\PYZus{}colors}\PY{o}{=}\PY{l+m+mi}{56}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{56}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}170}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Visualisation de la matrice de corrélation}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{c+c1}{\PYZsh{} Convertir les données en float}
+          \PY{n}{df} \PY{o}{=} \PY{n}{dfs}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Mise en place de la matrice de coorélation}
+          \PY{n}{corr}                             \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+          \PY{n}{mask}                             \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{bool}\PY{p}{)}
+          \PY{n}{mask}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+          \PY{n}{f}\PY{p}{,} \PY{n}{ax}                            \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{56}\PY{p}{,}\PY{l+m+mi}{71}\PY{p}{)}\PY{p}{)}
+          \PY{n}{cmap}                             \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{diverging\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Visualisation de la matrice}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{mask}\PY{o}{=}\PY{n}{mask}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{center}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cbar\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{shrink}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}171}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a200abcc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    On a bien une coorélation entre les differents mesures de Hold, Pressure
+et Finger-Area avec leurs moyennes
+
+On a bien un corrélations aussi avec les différentes mesures des Hold
+
+    \section{Modélisation}\label{moduxe9lisation}
+
+    \subsubsection{Definition du modèle}\label{definition-du-moduxe8le}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Subject}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Subject}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Création d'un jeu de test et
+d'apprentissage}\label{cruxe9ation-dun-jeu-de-test-et-dapprentissage}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}184}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(} \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{)}
+          \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}184}]:} ((2142, 71), (714, 71))
+\end{Verbatim}
+            
+    \subsubsection{Entrainer le modèle : Choix sur une
+RandomForestClassifier}\label{entrainer-le-moduxe8le-choix-sur-une-randomforestclassifier}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} \PY{n}{algo} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{n}{modele} \PY{o}{=} \PY{n}{algo}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ pour ce modèle}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{modele}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{100.0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+ Accuracy: 79.132 pour ce modèle
+
+
+    \end{Verbatim}
+
+    \section{Optimisation des hyperparamètres (grid
+search)}\label{optimisation-des-hyperparamuxe8tres-grid-search}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{c+c1}{\PYZsh{} utilisation d\PYZsq{}une grille complete avec toutes les parametres jugés nécessaires}
+          
+          \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{71}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bootstrap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{False}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{criterion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{p}{\PYZcb{}}
+          
+          \PY{c+c1}{\PYZsh{} afficher les 3 meilleures resultats de notre grid search ainsi que le temps effectué}
+          
+          \PY{k}{def} \PY{n+nf}{rapport}\PY{p}{(}\PY{n}{resultat}\PY{p}{,} \PY{n}{n\PYZus{}top}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}top} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{candidates} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flatnonzero}\PY{p}{(}\PY{n}{resultat}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{candidate} \PY{o+ow}{in} \PY{n}{candidates}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model with rank: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean validation score: }\PY{l+s+si}{\PYZob{}0:.3f\PYZcb{}}\PY{l+s+s2}{ (std: }\PY{l+s+si}{\PYZob{}1:.3f\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                            \PY{n}{resultat}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{candidate}\PY{p}{]}\PY{p}{,}
+                            \PY{n}{resultat}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{candidate}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Parameters: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{resultat}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{params}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{candidate}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{} Effectuer grid search}
+          \PY{n}{grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{algo}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+          \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La GridSearchCV met }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{ secondes pour afficher les }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ candidats pour l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{optimisation des hyperparametres.}\PY{l+s+s2}{\PYZdq{}}
+                \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{params}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{report}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+La GridSearchCV met 929.75 secondes pour afficher les 324 candidats pour l'optimisation des hyperparametres.
+Model with rank: 1
+Mean validation score: 0.882 (std: 0.047)
+Parameters: \{'bootstrap': False, 'criterion': 'entropy', 'max\_depth': 9, 'max\_features': 'auto', 'min\_samples\_split': 3, 'n\_estimators': 71\}
+
+Model with rank: 2
+Mean validation score: 0.880 (std: 0.036)
+Parameters: \{'bootstrap': False, 'criterion': 'entropy', 'max\_depth': 9, 'max\_features': 'sqrt', 'min\_samples\_split': 3, 'n\_estimators': 71\}
+
+Model with rank: 3
+Mean validation score: 0.878 (std: 0.044)
+Parameters: \{'bootstrap': False, 'criterion': 'entropy', 'max\_depth': 9, 'max\_features': 'sqrt', 'min\_samples\_split': 7, 'n\_estimators': 71\}
+
+
+    \end{Verbatim}
+
+    \section{Optimisation du modèle}\label{optimisation-du-moduxe8le}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{n}{hyperparametres} \PY{o}{=} \PY{p}{\PYZob{}}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bootstrap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k+kc}{False}\PY{p}{,} 
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{9}\PY{p}{,} 
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,} 
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{71}
+          \PY{p}{\PYZcb{}}
+          
+          \PY{n}{algo2} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{hyperparametres}\PY{p}{)}
+          
+          \PY{n}{newModele} \PY{o}{=} \PY{n}{algo2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ pour ce modele optimisé}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{newModele}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{100.0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Accuracy: 90.196 pour ce modele optimisé
+
+
+    \end{Verbatim}
+
+    \section{ROC}\label{roc}
+
+    Roc est n'inutile ici car on a un problème multi class et que la ROC est
+faite pour les problèmes à classification binaire
+
+    \section{Sauvegarder le modele}\label{sauvegarder-le-modele}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modele.ckpt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{file}\PY{p}{:}
+              \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{newModele}\PY{p}{,} \PY{n}{file}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
