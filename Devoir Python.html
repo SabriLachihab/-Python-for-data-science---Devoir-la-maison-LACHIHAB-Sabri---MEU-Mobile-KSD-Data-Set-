@@ -11913,7 +11913,7 @@ Download finished of MEU-Mobile KSD 2016.xlsx
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Data-pr&#233;paration-(pandas)">Data-pr&#233;paration (pandas)<a class="anchor-link" href="#Data-pr&#233;paration-(pandas)">&#182;</a></h1><p>Notre base de données est le fichier 'MEU-Mobile KSD 2016.xlsx' qu'on téléchargé précédament</p>
+<h1 id="Data-pr&#233;paration-(pandas)">Data-pr&#233;paration (pandas)<a class="anchor-link" href="#Data-pr&#233;paration-(pandas)">&#182;</a></h1><p>Notre base de données est le fichier 'MEU-Mobile KSD 2016.xlsx' qu'on a téléchargé précédament</p>
 
 </div>
 </div>
@@ -11965,7 +11965,7 @@ Download finished of MEU-Mobile KSD 2016.xlsx
 
 <span class="c1"># Suppression des lignes vides</span>
 <span class="n">filterDF</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Subject&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="n">filterDF</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">filterDF</span><span class="p">]</span>
 
 <span class="c1">#Visualisation des 5 premieres lignes du dataframe</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -12627,7 +12627,7 @@ Name: Subject, dtype: int64
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Convertir les données en float</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 
 <span class="c1"># Mise en place de la matrice de coorélation</span>
 <span class="n">corr</span>                             <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
