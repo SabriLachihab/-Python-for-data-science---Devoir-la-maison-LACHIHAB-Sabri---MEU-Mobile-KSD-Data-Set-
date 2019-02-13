@@ -17,4 +17,9 @@ Le MEU-Mobile KSD (Keystroke Dynamics) dataset de UCI Machine Learning Repositor
   * ROC non faiite
   * Mise en place d'une API
   
+ Pour lancer l'API : 
+  * aller dans le fichier API 
+  * executer le serveur => python3 server.py
+  * lancer le 127.0.0.1:5001/api pour voir les predictions
+  
  Code + Presentation du projet présent dans ce github 
